@@ -1,40 +1,162 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Admin Dashboard</title>
-  <link rel="stylesheet" href="style.css">
-  <script>
-    function login() {
-      const pass = document.getElementById("pass").value;
-      const hash = btoa(pass);
-
-      if (hash === "TGFtZWNrQDEyMzQ=") { // base64 of: Lameck@1234
-        document.getElementById("login").style.display = "none";
-        document.getElementById("dashboard").style.display = "block";
-      } else {
-        alert("Access Denied");
-      }
-    }
-  </script>
+<meta charset="UTF-8">
+<title>Admin Dashboard</title>
+<link rel="stylesheet" href="style.css">
+<style>
+body { font-family: Arial, sans-serif; margin:0; background:#f4f4f4; }
+header { background:#222; color:white; padding:15px; text-align:center; }
+.admin-container { display:flex; flex-direction:column; align-items:center; padding:20px; }
+.admin-box { background:white; padding:20px; border-radius:8px; width:90%; max-width:800px; box-shadow:0 0 10px rgba(0,0,0,.2); margin:20px 0; }
+.admin-box h2 { margin-top:0; }
+input, select, button, textarea { padding:8px; margin:5px 0; width:100%; border-radius:5px; border:1px solid #ccc; }
+button { background:#58a6ff; color:#fff; cursor:pointer; border:none; }
+button:hover { background:#1f6feb; }
+table { width:100%; border-collapse: collapse; margin-top:10px; }
+th, td { padding:10px; border:1px solid #ccc; text-align:left; }
+button.small { width:auto; padding:5px 10px; margin-right:5px; }
+</style>
 </head>
 <body>
 
+<header>
+  <h1>Admin Dashboard</h1>
+</header>
+
+<div class="admin-container">
+
+<!-- LOGIN -->
 <div id="login" class="admin-box">
   <h2>Admin Login</h2>
   <input type="password" id="pass" placeholder="Password">
   <button onclick="login()">Login</button>
 </div>
 
+<!-- DASHBOARD -->
 <div id="dashboard" class="admin-box" style="display:none;">
-  <h2>Admin Dashboard</h2>
-  <p>✔ You are logged in</p>
+  <h2>Welcome, Admin!</h2>
+  <p>Manage your projects below:</p>
 
-  <ul>
-    <li>Add / Edit Projects (manual)</li>
-    <li>Update portfolio content</li>
-    <li>Manage site layout</li>
-  </ul>
+  <!-- Project Table -->
+  <table id="projects-table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Demo URL</th>
+        <th>GitHub URL</th>
+        <th>Category</th>
+        <th>Tech</th>
+        <th>License</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <h3>Add New Project</h3>
+  <input type="text" id="new-name" placeholder="Project Name">
+  <input type="text" id="new-desc" placeholder="Description">
+  <input type="text" id="new-img" placeholder="Image URL">
+  <input type="text" id="new-demo" placeholder="Demo URL">
+  <input type="text" id="new-github" placeholder="GitHub URL">
+  <input type="text" id="new-cat" placeholder="Category">
+  <input type="text" id="new-tech" placeholder="Technologies">
+  <input type="text" id="new-license" placeholder="License">
+  <button onclick="addProject()">Add Project</button>
+
+</div>
 </div>
 
+<script>
+// LOGIN
+function login(){
+  const pass = document.getElementById("pass").value;
+  const hash = btoa(pass);
+  if(hash === "TGFtZWNrQDEyMzQ="){ // Lameck@1234
+    document.getElementById("login").style.display="none";
+    document.getElementById("dashboard").style.display="block";
+    renderTable();
+  } else { alert("Access Denied"); }
+}
+
+// PROJECTS DATA
+let projectsData = [
+  {name:"Portfolio Website", desc:"Personal portfolio", img:"https://via.placeholder.com/150", demo:"#", github:"#", category:"web", tech:"HTML, CSS, JS", license:"MIT"},
+  {name:"Voting System", desc:"School voting system", img:"https://via.placeholder.com/150", demo:"#", github:"#", category:"web", tech:"PHP, MySQL", license:"MIT"}
+];
+
+// RENDER TABLE
+function renderTable(){
+  const tbody = document.querySelector("#projects-table tbody");
+  tbody.innerHTML="";
+  projectsData.forEach((p,i)=>{
+    const row = document.createElement("tr");
+    row.innerHTML=`
+      <td>${p.name}</td>
+      <td>${p.desc}</td>
+      <td><a href="${p.demo}" target="_blank">Demo</a></td>
+      <td><a href="${p.github}" target="_blank">GitHub</a></td>
+      <td>${p.category}</td>
+      <td>${p.tech}</td>
+      <td>${p.license}</td>
+      <td>
+        <button class="small" onclick="editProject(${i})">Edit</button>
+        <button class="small" onclick="removeProject(${i})">Remove</button>
+      </td>
+    `;
+    tbody.appendChild(row);
+  });
+}
+
+// ADD PROJECT
+function addProject(){
+  const newP = {
+    name: document.getElementById("new-name").value,
+    desc: document.getElementById("new-desc").value,
+    img: document.getElementById("new-img").value,
+    demo: document.getElementById("new-demo").value,
+    github: document.getElementById("new-github").value,
+    category: document.getElementById("new-cat").value,
+    tech: document.getElementById("new-tech").value,
+    license: document.getElementById("new-license").value
+  };
+  projectsData.push(newP);
+  renderTable();
+  alert("Project added!");
+}
+
+// REMOVE PROJECT
+function removeProject(i){
+  if(confirm("Delete project "+projectsData[i].name+"?")){
+    projectsData.splice(i,1);
+    renderTable();
+  }
+}
+
+// EDIT PROJECT
+function editProject(i){
+  const p = projectsData[i];
+  const name = prompt("Name:", p.name);
+  const desc = prompt("Description:", p.desc);
+  const demo = prompt("Demo URL:", p.demo);
+  const github = prompt("GitHub URL:", p.github);
+  const cat = prompt("Category:", p.category);
+  const tech = prompt("Tech:", p.tech);
+  const license = prompt("License:", p.license);
+
+  if(name) p.name=name;
+  if(desc) p.desc=desc;
+  if(demo) p.demo=demo;
+  if(github) p.github=github;
+  if(cat) p.category=cat;
+  if(tech) p.tech=tech;
+  if(license) p.license=license;
+
+  renderTable();
+  alert("Project updated!");
+}
+</script>
 </body>
 </html>
