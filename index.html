@@ -5,28 +5,34 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Lameck's Portfolio</title>
 <style>
-  body{margin:0;font-family:sans-serif;background:#0d1117;color:#e6edf3;}
-  header{padding:2rem;text-align:center;background:#161b22;}
-  header h1{margin:0;font-size:2.5rem;}
-  header p{color:#8b949e;margin-top:.5rem;}
-  
-  #projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem;padding:2rem;}
+  body{margin:0;font-family:sans-serif;background:#0d1117;color:#e6edf3;display:flex;flex-direction:column;}
+  header{padding:1rem;text-align:center;background:#161b22;}
+  header h1{margin:0;font-size:2rem;}
+  header p{color:#8b949e;margin-top:.3rem;}
+
+  main{display:flex;flex-wrap:wrap;padding:1rem;gap:1rem;}
+  #projects{flex:2;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem;}
   .project{background:#161b22;padding:1rem;border-radius:8px;cursor:pointer;transition:transform .2s;}
   .project:hover{transform:scale(1.03);}
   .project img{width:100%;border-radius:5px;}
   .project h3{margin:.5rem 0;}
-  
+
+  #settings-panel{flex:1;background:#161b22;padding:1rem;border-radius:8px;min-width:200px;}
+  #settings-panel h2{margin-top:0;}
+  .setting{margin:0.5rem 0;}
+  select{padding:.3rem;border-radius:5px;border:none;background:#0d1117;color:#e6edf3;}
+
   #project-modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.85);justify-content:center;align-items:center;}
   #project-modal .modal-content{background:#161b22;padding:1.5rem;border-radius:8px;max-width:600px;width:90%;position:relative;}
   #project-modal .close{position:absolute;top:.5rem;right:.5rem;font-size:1.5rem;cursor:pointer;}
   #project-modal img{width:100%;border-radius:5px;margin-top:.5rem;}
-  
-  section{padding:2rem;text-align:center;}
-  form input, form textarea{width:100%;padding:.5rem;margin:.5rem 0;border-radius:5px;border:none;}
+
+  section{padding:1rem;}
+  form input, form textarea{width:100%;padding:.5rem;margin:.5rem 0;border-radius:5px;border:none;background:#0d1117;color:#e6edf3;}
   form button{padding:.5rem 1rem;background:#58a6ff;border:none;border-radius:5px;color:#0d1117;cursor:pointer;transition:background .2s;}
   form button:hover{background:#1f6feb;}
-  
-  footer{padding:1rem;text-align:center;color:#8b949e;background:#161b22;}
+
+  footer{padding:1rem;text-align:center;color:#8b949e;background:#161b22;margin-top:1rem;}
 </style>
 </head>
 <body>
@@ -36,24 +42,55 @@
   <p>Full Stack Developer & Designer | Email: lameckmukabana274@gmail.com</p>
 </header>
 
-<section id="projects">
-  <div class="project" onclick="openProject(0)">
-    <img src="https://via.placeholder.com/300" alt="Portfolio Website">
-    <h3>Portfolio Website</h3>
+<main>
+  <!-- Left column: Projects -->
+  <div id="projects">
+    <div class="project" onclick="openProject(0)">
+      <img src="https://via.placeholder.com/300" alt="Portfolio Website">
+      <h3>Portfolio Website</h3>
+    </div>
+    <div class="project" onclick="openProject(1)">
+      <img src="https://via.placeholder.com/300" alt="Weather App">
+      <h3>Weather App</h3>
+    </div>
+    <div class="project" onclick="openProject(2)">
+      <img src="https://via.placeholder.com/300" alt="ToDo App">
+      <h3>ToDo App</h3>
+    </div>
+    <div class="project" onclick="openProject(3)">
+      <img src="https://via.placeholder.com/300" alt="Chat App">
+      <h3>Chat App</h3>
+    </div>
   </div>
-  <div class="project" onclick="openProject(1)">
-    <img src="https://via.placeholder.com/300" alt="Weather App">
-    <h3>Weather App</h3>
+
+  <!-- Right column: Settings & info -->
+  <div id="settings-panel">
+    <h2>Settings</h2>
+    <div class="setting">
+      <label for="language">Language:</label>
+      <select id="language" onchange="changeLanguage()">
+        <option value="en" selected>English</option>
+        <option value="fr">French</option>
+        <option value="es">Spanish</option>
+      </select>
+    </div>
+    <div class="setting">
+      <button onclick="alert('Theme settings coming soon!')">Theme</button>
+    </div>
+    <div class="setting">
+      <button onclick="alert('Other settings coming soon!')">Other Settings</button>
+    </div>
+    <section>
+      <h2>Contact Me</h2>
+      <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="_replyto" placeholder="Your Email" required>
+        <textarea name="message" placeholder="Your Message" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+    </section>
   </div>
-  <div class="project" onclick="openProject(2)">
-    <img src="https://via.placeholder.com/300" alt="ToDo App">
-    <h3>ToDo App</h3>
-  </div>
-  <div class="project" onclick="openProject(3)">
-    <img src="https://via.placeholder.com/300" alt="Chat App">
-    <h3>Chat App</h3>
-  </div>
-</section>
+</main>
 
 <div id="project-modal" onclick="closeProject(event)">
   <div class="modal-content">
@@ -64,21 +101,6 @@
     <p id="modal-links"></p>
   </div>
 </div>
-
-<section>
-  <h2>Contact Me</h2>
-  <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-    <input type="text" name="name" placeholder="Your Name" required>
-    <input type="email" name="_replyto" placeholder="Your Email" required>
-    <textarea name="message" placeholder="Your Message" required></textarea>
-    <button type="submit">Send Message</button>
-  </form>
-</section>
-
-<section>
-  <h2>About & License</h2>
-  <p>This portfolio was designed and built by Lameck Mukabana. All content ©2026. Licensed under MIT License.</p>
-</section>
 
 <footer>
   &copy; 2026 Lameck Mukabana. All rights reserved.
@@ -105,6 +127,12 @@ function closeProject(e){
   if(e.target.id === "project-modal" || e.target.className==="close"){
     document.getElementById("project-modal").style.display = "none";
   }
+}
+
+// Example language change function (can expand later)
+function changeLanguage(){
+  const lang = document.getElementById("language").value;
+  alert("Language changed to: " + lang);
 }
 </script>
 
