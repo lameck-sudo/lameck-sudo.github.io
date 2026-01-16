@@ -1,59 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Portfolio</title>
-<link rel="stylesheet" href="style.css">
-<style>
-body { font-family: Arial, sans-serif; background:#f4f4f4; margin:0; padding:0;}
-header { background:#333; color:#fff; padding:1rem; text-align:center;}
-h1 { margin:0;}
-.projects { display:flex; flex-wrap:wrap; justify-content:center; margin:2rem;}
-.project { background:#fff; border:1px solid #ccc; padding:1rem; margin:1rem; width:250px; border-radius:10px; box-shadow:0 2px 5px rgba(0,0,0,0.2);}
-.project button { padding:0.5rem 1rem; margin-top:0.5rem; cursor:pointer; border:none; background:#333; color:#fff; border-radius:5px;}
-.project button:hover { background:#555;}
-footer { text-align:center; margin:2rem; color:#555;}
-</style>
+  <meta charset="UTF-8">
+  <title>Lameck | Developer Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="script.js"></script>
 </head>
 <body>
 
 <header>
-<h1>Welcome to My Portfolio</h1>
+  <h1>Lameck Mukabana</h1>
+  <p>Software Developer • Web • Systems</p>
+  <button onclick="toggleSettings()">⚙ Settings</button>
 </header>
 
-<div class="projects">
+<div class="container">
 
-<div class="project">
-<h3>Voting System</h3>
-<p>A secure student voting system.</p>
-<button onclick="openVotingSystem()">Open Project</button>
+  <!-- LEFT COLUMN -->
+  <aside>
+    <h2>Projects</h2>
+    <ul>
+      <li onclick="openProject('Voting System','A secure school voting system built in PHP.')">
+        🗳 Voting System
+      </li>
+      <li onclick="openProject('Community Hub','Emergency SOS & volunteer coordination platform.')">
+        🚨 Community Hub
+      </li>
+      <li onclick="openProject('Student Helper','Question & answer academic assistant.')">
+        📘 Student Helper
+      </li>
+      <li onclick="openProject('Portfolio','This portfolio website.')">
+        🌐 Portfolio
+      </li>
+    </ul>
+  </aside>
+
+  <!-- CENTER COLUMN -->
+  <main>
+    <h2>About Me</h2>
+    <p>
+      I am a passionate developer focused on building meaningful software
+      solutions, web applications, and systems that solve real problems.
+    </p>
+
+    <h2>Contact Me</h2>
+    <form action="mailto:YOUR_EMAIL@gmail.com" method="post" enctype="text/plain">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <textarea name="message" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </main>
+
+  <!-- RIGHT COLUMN -->
+  <section>
+    <h2>Skills</h2>
+    <ul>
+      <li>HTML / CSS / JavaScript</li>
+      <li>PHP & MySQL</li>
+      <li>Python</li>
+      <li>Linux & Servers</li>
+      <li>Git & GitHub</li>
+    </ul>
+
+    <a href="admin.html" class="admin-link">🔒 Admin Login</a>
+  </section>
+
 </div>
 
-<div class="project">
-<h3>Project 2</h3>
-<p>Another amazing project.</p>
-<button onclick="alert('Project 2 not yet implemented')">Open Project</button>
+<!-- SETTINGS PANEL -->
+<div id="settings" class="settings hidden">
+  <h3>Settings</h3>
+  <label>
+    Language:
+    <select onchange="changeLanguage(this.value)">
+      <option value="en">English</option>
+      <option value="sw">Swahili</option>
+    </select>
+  </label>
+
+  <label>
+    Theme:
+    <select onchange="changeTheme(this.value)">
+      <option value="light">Light</option>
+      <option value="dark">Dark</option>
+    </select>
+  </label>
+
+  <button onclick="toggleSettings()">Close</button>
 </div>
 
-<!-- Add more projects similarly -->
-
+<!-- PROJECT MODAL -->
+<div id="modal" class="modal hidden">
+  <div class="modal-content">
+    <h3 id="modal-title"></h3>
+    <p id="modal-desc"></p>
+    <button onclick="closeModal()">Close</button>
+  </div>
 </div>
 
 <footer>
-<p>&copy; 2026 Lameck Mukabana | Email: lameckmukabana274@gmail.com</p>
+  <p>© 2026 Lameck Mukabana • MIT License</p>
 </footer>
-
-<script>
-function openVotingSystem(){
-    const pass = prompt("Enter project password:");
-    if(pass === "Vote@2026"){  // Set your own password here
-        window.location.href = "voting_system/student_login.php";
-    } else {
-        alert("Incorrect password. Access denied.");
-    }
-}
-</script>
 
 </body>
 </html>
