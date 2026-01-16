@@ -1,168 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lameck's Portfolio</title>
-<style>
-  body{margin:0;font-family:sans-serif;background:#0d1117;color:#e6edf3;display:flex;flex-direction:column;transition:background .3s,color .3s;}
-  header{padding:1rem;text-align:center;background:#161b22;transition:background .3s;color .3s;}
-  header h1{margin:0;font-size:2rem;}
-  header p{color:#8b949e;margin-top:.3rem;transition:color .3s;}
-  
-  main{display:flex;flex-wrap:wrap;padding:1rem;gap:1rem;}
-  #projects{flex:2;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem;}
-  .project{background:#161b22;padding:1rem;border-radius:8px;cursor:pointer;transition:transform .2s,background .3s;}
-  .project:hover{transform:scale(1.03);}
-  .project img{width:100%;border-radius:5px;}
-  .project h3{margin:.5rem 0;transition:color .3s;}
-  
-  #settings-panel{flex:1;background:#161b22;padding:1rem;border-radius:8px;min-width:200px;transition:background .3s;}
-  #settings-panel h2{margin-top:0;}
-  .setting{margin:0.5rem 0;}
-  select, button{padding:.3rem;border-radius:5px;border:none;background:#0d1117;color:#e6edf3;cursor:pointer;transition:background .3s,color .3s;}
-  select:hover, button:hover{background:#21262d;}
-  
-  #project-modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.85);justify-content:center;align-items:center;}
-  #project-modal .modal-content{background:#161b22;padding:1.5rem;border-radius:8px;max-width:600px;width:90%;position:relative;transition:background .3s,color .3s;}
-  #project-modal .close{position:absolute;top:.5rem;right:.5rem;font-size:1.5rem;cursor:pointer;}
-  #project-modal img{width:100%;border-radius:5px;margin-top:.5rem;}
-  
-  section{padding:1rem;}
-  form input, form textarea{width:100%;padding:.5rem;margin:.5rem 0;border-radius:5px;border:none;background:#0d1117;color:#e6edf3;transition:background .3s,color .3s;}
-  form button{padding:.5rem 1rem;background:#58a6ff;border:none;border-radius:5px;color:#0d1117;cursor:pointer;transition:background .3s,color .3s;}
-  form button:hover{background:#1f6feb;}
-  
-  footer{padding:1rem;text-align:center;color:#8b949e;background:#161b22;margin-top:1rem;transition:background .3s,color .3s;}
-  
-  /* Light theme */
-  body.light{background:#f5f5f5;color:#222;}
-  body.light header, body.light #settings-panel, body.light .project, body.light #project-modal .modal-content, body.light footer{background:#fff;color:#222;}
-  body.light form input, body.light form textarea, body.light select, body.light button{background:#eee;color:#222;}
-</style>
+  <meta charset="UTF-8">
+  <title>Lameck | Developer Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="script.js"></script>
 </head>
 <body>
 
 <header>
   <h1>Lameck Mukabana</h1>
-  <p>Full Stack Developer & Designer | Email: lameckmukabana274@gmail.com</p>
+  <p>Software Developer • Web • Systems</p>
+  <button onclick="toggleSettings()">⚙ Settings</button>
 </header>
 
-<main>
-  <!-- Left column: Projects -->
-  <div id="projects"></div>
+<div class="container">
 
-  <!-- Right column: Settings & info -->
-  <div id="settings-panel">
-    <h2>Settings</h2>
+  <!-- LEFT COLUMN -->
+  <aside>
+    <h2>Projects</h2>
+    <ul>
+      <li onclick="openProject('Voting System','A secure school voting system built in PHP.')">
+        🗳 Voting System
+      </li>
+      <li onclick="openProject('Community Hub','Emergency SOS & volunteer coordination platform.')">
+        🚨 Community Hub
+      </li>
+      <li onclick="openProject('Student Helper','Question & answer academic assistant.')">
+        📘 Student Helper
+      </li>
+      <li onclick="openProject('Portfolio','This portfolio website.')">
+        🌐 Portfolio
+      </li>
+    </ul>
+  </aside>
 
-    <div class="setting">
-      <label for="language">Language:</label>
-      <select id="language" onchange="changeLanguage()">
-        <option value="en" selected>English</option>
-        <option value="fr">French</option>
-        <option value="es">Spanish</option>
-      </select>
-    </div>
+  <!-- CENTER COLUMN -->
+  <main>
+    <h2>About Me</h2>
+    <p>
+      I am a passionate developer focused on building meaningful software
+      solutions, web applications, and systems that solve real problems.
+    </p>
 
-    <div class="setting">
-      <label for="theme">Theme:</label>
-      <select id="theme" onchange="changeTheme()">
-        <option value="dark" selected>Dark</option>
-        <option value="light">Light</option>
-      </select>
-    </div>
+    <h2>Contact Me</h2>
+    <form action="mailto:YOUR_EMAIL@gmail.com" method="post" enctype="text/plain">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <textarea name="message" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </main>
 
-    <div class="setting">
-      <label for="category">Filter Projects:</label>
-      <select id="category" onchange="filterProjects()">
-        <option value="all" selected>All</option>
-        <option value="web">Web</option>
-        <option value="app">App</option>
-      </select>
-    </div>
+  <!-- RIGHT COLUMN -->
+  <section>
+    <h2>Skills</h2>
+    <ul>
+      <li>HTML / CSS / JavaScript</li>
+      <li>PHP & MySQL</li>
+      <li>Python</li>
+      <li>Linux & Servers</li>
+      <li>Git & GitHub</li>
+    </ul>
 
-    <section>
-      <h2>Contact Me</h2>
-      <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-        <input type="text" name="name" placeholder="Your Name" required>
-        <input type="email" name="_replyto" placeholder="Your Email" required>
-        <textarea name="message" placeholder="Your Message" required></textarea>
-        <button type="submit">Send Message</button>
-      </form>
-    </section>
-  </div>
-</main>
+    <a href="admin.html" class="admin-link">🔒 Admin Login</a>
+  </section>
 
-<div id="project-modal" onclick="closeProject(event)">
+</div>
+
+<!-- SETTINGS PANEL -->
+<div id="settings" class="settings hidden">
+  <h3>Settings</h3>
+  <label>
+    Language:
+    <select onchange="changeLanguage(this.value)">
+      <option value="en">English</option>
+      <option value="sw">Swahili</option>
+    </select>
+  </label>
+
+  <label>
+    Theme:
+    <select onchange="changeTheme(this.value)">
+      <option value="light">Light</option>
+      <option value="dark">Dark</option>
+    </select>
+  </label>
+
+  <button onclick="toggleSettings()">Close</button>
+</div>
+
+<!-- PROJECT MODAL -->
+<div id="modal" class="modal hidden">
   <div class="modal-content">
-    <span class="close" onclick="closeProject(event)">&times;</span>
-    <h2 id="modal-title"></h2>
+    <h3 id="modal-title"></h3>
     <p id="modal-desc"></p>
-    <img id="modal-img" src="" alt="">
-    <p id="modal-links"></p>
+    <button onclick="closeModal()">Close</button>
   </div>
 </div>
 
 <footer>
-  &copy; 2026 Lameck Mukabana. All rights reserved.
+  <p>© 2026 Lameck Mukabana • MIT License</p>
 </footer>
-
-<script>
-const projectsData = [
-  {name:"Portfolio Website", desc:"My personal portfolio with admin dashboard.", img:"https://via.placeholder.com/300", demo:"https://lameck-sudo.github.io/", github:"https://github.com/lameck-sudo/portfolio", category:"web"},
-  {name:"Weather App", desc:"Live weather dashboard fetching data from API.", img:"https://via.placeholder.com/300", demo:"https://example.com/weather", github:"https://github.com/lameck/weather-app", category:"app"},
-  {name:"ToDo App", desc:"Task management app to organize your day.", img:"https://via.placeholder.com/300", demo:"https://example.com/todo", github:"https://github.com/lameck/todo-list", category:"app"},
-  {name:"Chat App", desc:"Real-time chat app with private messages.", img:"https://via.placeholder.com/300", demo:"https://example.com/chat", github:"https://github.com/lameck/chat-app", category:"app"},
-  {name:"Blog Website", desc:"A responsive blog website.", img:"https://via.placeholder.com/300", demo:"https://example.com/blog", github:"https://github.com/lameck/blog", category:"web"},
-  {name:"E-commerce Site", desc:"Online store project.", img:"https://via.placeholder.com/300", demo:"https://example.com/shop", github:"https://github.com/lameck/shop", category:"web"}
-];
-
-// Render projects
-function renderProjects(filtered=projectsData){
-  const container = document.getElementById("projects");
-  container.innerHTML = "";
-  filtered.forEach((p,i)=>{
-    const div = document.createElement("div");
-    div.className="project";
-    div.innerHTML = `<img src="${p.img}" alt="${p.name}"><h3>${p.name}</h3>`;
-    div.onclick = ()=>openProject(i);
-    container.appendChild(div);
-  });
-}
-renderProjects();
-
-// Modal
-function openProject(i){
-  const p = projectsData[i];
-  document.getElementById("modal-title").innerText = p.name;
-  document.getElementById("modal-desc").innerText = p.desc;
-  document.getElementById("modal-img").src = p.img;
-  document.getElementById("modal-links").innerHTML = `<a href="${p.demo}" target="_blank">Live Demo</a> | <a href="${p.github}" target="_blank">GitHub</a>`;
-  document.getElementById("project-modal").style.display = "flex";
-}
-function closeProject(e){
-  if(e.target.id === "project-modal" || e.target.className==="close"){
-    document.getElementById("project-modal").style.display = "none";
-  }
-}
-
-// Settings
-function changeTheme(){
-  const theme = document.getElementById("theme").value;
-  if(theme==="light"){ document.body.classList.add("light"); } 
-  else { document.body.classList.remove("light"); }
-}
-function changeLanguage(){
-  const lang = document.getElementById("language").value;
-  alert("Language changed to: " + lang);
-}
-function filterProjects(){
-  const cat = document.getElementById("category").value;
-  if(cat==="all"){ renderProjects(); }
-  else { renderProjects(projectsData.filter(p=>p.category===cat)); }
-}
-</script>
 
 </body>
 </html>

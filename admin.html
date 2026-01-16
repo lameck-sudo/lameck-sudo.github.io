@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <script>
+    function login() {
+      const pass = document.getElementById("pass").value;
+      const hash = btoa(pass);
+
+      if (hash === "TGFtZWNrQDEyMzQ=") { // base64 of: Lameck@1234
+        document.getElementById("login").style.display = "none";
+        document.getElementById("dashboard").style.display = "block";
+      } else {
+        alert("Access Denied");
+      }
+    }
+  </script>
+</head>
+<body>
+
+<div id="login" class="admin-box">
+  <h2>Admin Login</h2>
+  <input type="password" id="pass" placeholder="Password">
+  <button onclick="login()">Login</button>
+</div>
+
+<div id="dashboard" class="admin-box" style="display:none;">
+  <h2>Admin Dashboard</h2>
+  <p>✔ You are logged in</p>
+
+  <ul>
+    <li>Add / Edit Projects (manual)</li>
+    <li>Update portfolio content</li>
+    <li>Manage site layout</li>
+  </ul>
+</div>
+
+</body>
+</html>

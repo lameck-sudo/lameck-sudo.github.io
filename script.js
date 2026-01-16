@@ -1,11 +1,21 @@
-// Animate skill bars on scroll
-window.addEventListener('scroll', () => {
-  const skills = document.querySelectorAll('.progress');
-  const trigger = window.innerHeight * 0.8;
-  skills.forEach(skill => {
-    const skillTop = skill.getBoundingClientRect().top;
-    if(skillTop < trigger) {
-      skill.style.width = skill.style.width; // keep width from HTML
-    }
-  });
-});
+function openProject(title, desc) {
+  document.getElementById("modal-title").innerText = title;
+  document.getElementById("modal-desc").innerText = desc;
+  document.getElementById("modal").classList.remove("hidden");
+}
+
+function closeModal() {
+  document.getElementById("modal").classList.add("hidden");
+}
+
+function toggleSettings() {
+  document.getElementById("settings").classList.toggle("hidden");
+}
+
+function changeTheme(theme) {
+  document.body.style.background = theme === "dark" ? "#111" : "#f4f4f4";
+}
+
+function changeLanguage(lang) {
+  alert("Language switched to " + lang);
+}
