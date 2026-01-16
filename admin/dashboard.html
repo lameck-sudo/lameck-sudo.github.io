@@ -2,15 +2,87 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin Dashboard</title>
+<meta name="robots" content="noindex,nofollow">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-body { font-family:Arial; padding:20px; background:#f5f5f5; }
-h1 { color:#00bcd4; }
+body{background:#0d1117;color:#e6edf3;font-family:sans-serif;padding:2rem}
+button{padding:10px;margin:5px 0}
+section{margin-top:2rem}
 </style>
 </head>
 <body>
-<h1>Welcome Admin!</h1>
-<p>You can edit your portfolio content here privately.</p>
+
+<h1>Admin Dashboard</h1>
+<button onclick="logout()">Logout</button>
+
+<section>
+<h2>Projects</h2>
+<ul id="projects"></ul>
+<input type="text" id="projName" placeholder="Project Name">
+<input type="text" id="projDesc" placeholder="Description">
+<button onclick="addProject()">Add Project</button>
+</section>
+
+<section>
+<h2>Messages</h2>
+<ul id="messages"></ul>
+</section>
+
+<script>
+const SUPABASE_URL = "https://isoxqxakxhqcjoqqbswn.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_2Jv93KvSyoKsFfTRKa1VOw__JMkimwW";
+
+const supabase = Supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+// Protect dashboard
+if(!localStorage.getItem("admin")){
+  window.location.href = "index.html";
+}
+
+// Logout
+function logout(){
+  localStorage.removeItem("admin");
+  window.location.href = "index.html";
+}
+
+// Fetch projects
+async function fetchProjects(){
+  const { data, error } = await supabase.from('projects').select('*');
+  const ul = document.getElementById("projects");
+  ul.innerHTML = '';
+  data.forEach(p=>{
+    const li = document.createElement('li');
+    li.innerText = `${p.name} - ${p.description}`;
+    ul.appendChild(li);
+  });
+}
+
+// Add project
+async function addProject(){
+  const name = document.getElementById("projName").value;
+  const desc = document.getElementById("projDesc").value;
+  await supabase.from('projects').insert([{name, description:desc}]);
+  document.getElementById("projName").value = '';
+  document.getElementById("projDesc").value = '';
+  fetchProjects();
+}
+
+// Fetch messages
+async function fetchMessages(){
+  const { data, error } = await supabase.from('messages').select('*').order('date', {ascending:false});
+  const ul = document.getElementById("messages");
+  ul.innerHTML = '';
+  data.forEach(m=>{
+    const li = document.createElement('li');
+    li.innerText = `${m.date} | ${m.name} (${m.email}): ${m.message}`;
+    ul.appendChild(li);
+  });
+}
+
+// Initial load
+fetchProjects();
+fetchMessages();
+</script>
 </body>
 </html>
