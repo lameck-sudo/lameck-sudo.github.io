@@ -4,82 +4,83 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lameck Mukabana | Portfolio</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- Navbar -->
-<nav class="navbar">
-  <div class="logo">Lameck</div>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-</nav>
+<header class="hero">
+  <nav class="navbar">
+    <h1 class="logo">Lameck</h1>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
 
-<!-- Hero Section -->
-<section id="hero">
-  <h1>Hello, I'm Lameck Mukabana</h1>
-  <p>Web Developer | Designer | Problem Solver</p>
-</section>
+  <div class="hero-content">
+    <h2>Hello, I'm</h2>
+    <h1>Lameck Mukabana</h1>
+    <p>Developer • Problem Solver • Tech Enthusiast</p>
 
-<!-- About Section -->
-<section id="about">
+    <div class="buttons">
+      <a href="#projects" class="btn primary">View Projects</a>
+      <a href="#contact" class="btn secondary">Contact Me</a>
+    </div>
+  </div>
+</header>
+
+<section id="about" class="section">
   <h2>About Me</h2>
-  <p>I am a passionate developer from Kenya, skilled in web development, app development, and creating functional, modern applications.</p>
+  <p>
+    I’m a passionate developer focused on building clean, functional, and impactful
+    applications. I enjoy solving real-world problems using technology.
+  </p>
 </section>
 
-<!-- Skills Section -->
-<section id="skills">
+<section id="skills" class="section dark">
   <h2>Skills</h2>
-  <div class="skill">
+  <div class="skills-grid">
     <span>HTML</span>
-    <div class="skill-bar"><div class="progress" style="width: 95%;"></div></div>
-  </div>
-  <div class="skill">
     <span>CSS</span>
-    <div class="skill-bar"><div class="progress" style="width: 90%;"></div></div>
-  </div>
-  <div class="skill">
     <span>JavaScript</span>
-    <div class="skill-bar"><div class="progress" style="width: 85%;"></div></div>
-  </div>
-  <div class="skill">
     <span>PHP</span>
-    <div class="skill-bar"><div class="progress" style="width: 80%;"></div></div>
+    <span>Python</span>
+    <span>Git & GitHub</span>
   </div>
 </section>
 
-<!-- Projects Section -->
-<section id="projects">
+<section id="projects" class="section">
   <h2>Projects</h2>
-  <div class="projects-container">
-    <div class="project-card">
+  <div class="projects-grid">
+    <div class="card">
       <h3>Community Hub</h3>
-      <p>A real-time chat and SOS app built with PHP & Firebase.</p>
-      <a href="#" class="btn">View Project</a>
+      <p>Real-time chat and SOS support system.</p>
     </div>
-    <div class="project-card">
+    <div class="card">
       <h3>Voting App</h3>
-      <p>Secure voting app with admin dashboard, built with PHP & MariaDB.</p>
-      <a href="#" class="btn">View Project</a>
+      <p>Secure voting system with admin panel.</p>
     </div>
   </div>
 </section>
 
-<!-- Contact Section -->
-<section id="contact">
-  <h2>Contact Me</h2>
-  <form action="https://formspree.io/f/yourformid" method="POST">
-    <input type="text" name="name" placeholder="Your Name" required>
-    <input type="email" name="_replyto" placeholder="Your Email" required>
-    <textarea name="message" placeholder="Your Message" required></textarea>
-    <button type="submit">Send</button>
-  </form>
+<section id="contact" class="section dark">
+  <h2>Contact</h2>
+  <p>Let’s work together or just say hi 👋</p>
+  <div class="contact-links">
+    <a href="mailto:lameckmukabana274@gmail.com">Email</a>
+    <a href="https://github.com/lameck-sudo" target="_blank">GitHub</a>
+  </div>
 </section>
 
-<script src="script.js"></script>
+<footer>
+  <p>© 2026 Lameck Mukabana</p>
+</footer>
+
 </body>
 </html>
